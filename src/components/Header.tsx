@@ -11,7 +11,7 @@ const Header = () => {
   <header className="sticky top-0 z-50 w-full border-b bg-background/60 backdrop-blur py-2 supports-[backdrop]:bg-background/60">
    <div className="container flex mx-auto h-16 items-center justify-between px-4">
     <Link to={'/'}>
-     <img src={isDark ? "/public/logo1.png" : "/public/logo2.png"}
+     <img src={isDark ? "/logo1.png" : "/logo2.png"}
       alt="Klimate logo"
       className="h-14"></img>
     </Link>
