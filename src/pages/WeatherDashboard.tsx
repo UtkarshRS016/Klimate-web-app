@@ -4,11 +4,12 @@ import { AlertTriangle, MapPin, RefreshCw } from "lucide-react"
 import LoadingSkeleton from "@/components/LoadingSkeleton"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from "@/hooks/UseWeatherHooks"
+import CurrentWeather from "@/components/CurrentWeather"
 
 
 const WeatherDashboard = () => {
 
- const { coordinates, error: locationError, isLoading: locationLoading, getLocation } = useGeolocation()
+ const { coordinates, error: locationError, isLoading: locationLoading, getLocation } = useGeolocation();
 
  const weatherQuery = useWeatherQuery(coordinates);
  const forecastQuery = useForecastQuery(coordinates);
@@ -17,11 +18,13 @@ const WeatherDashboard = () => {
  const handleRefresh = () => {
   getLocation();
   if (coordinates) {
-   weatherQuery.refetch(),
+    weatherQuery.refetch(),
     forecastQuery.refetch(),
     locationQuery.refetch()
   }
  };
+
+//  console.log("Weather Query Data", weatherQuery.data);
 
  if (locationLoading) {
   return <LoadingSkeleton />
@@ -101,7 +104,7 @@ const WeatherDashboard = () => {
 
    <div className="grid gap-6">
     <div>
-     {/* current weather */}
+     <CurrentWeather data={weatherQuery.data} locationName={locationName} />
      {/* hourly temp */}
     </div>
     <div>

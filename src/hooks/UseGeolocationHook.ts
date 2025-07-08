@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 interface GeolocationState {
  coordinates: Coordinates | null,
  error: string | null,
- isLoading: Boolean
+ isLoading: boolean
 }
 
 export function useGeolocation() {
@@ -22,11 +22,12 @@ export function useGeolocation() {
   if (!navigator.geolocation) {
    setLocationData(() => ({
     coordinates: null,
-    error: "Gelocation is not supported by your browser",
-    isLoading: false
+    error: "Geolocation is not supported by your browser",
+    isLoading: false,
    }));
    return;
   }
+
   navigator.geolocation.getCurrentPosition(
    (position) => {
     setLocationData({
