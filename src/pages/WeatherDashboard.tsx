@@ -5,6 +5,8 @@ import LoadingSkeleton from "@/components/LoadingSkeleton"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from "@/hooks/UseWeatherHooks"
 import CurrentWeather from "@/components/CurrentWeather"
+import HourlyTemperature from "@/components/HourlyTemperature"
+import WeatherDetails from "@/components/WeatherDetails"
 
 
 const WeatherDashboard = () => {
@@ -15,10 +17,12 @@ const WeatherDashboard = () => {
  const forecastQuery = useForecastQuery(coordinates);
  const locationQuery = useReverseGeocodeQuery(coordinates);
 
+ console.log("weather query",weatherQuery)
+
  const handleRefresh = () => {
   getLocation();
   if (coordinates) {
-    weatherQuery.refetch(),
+   weatherQuery.refetch(),
     forecastQuery.refetch(),
     locationQuery.refetch()
   }
@@ -95,19 +99,18 @@ const WeatherDashboard = () => {
     <Button variant={'outline'}
      size={'icon'}
      onClick={handleRefresh}
-     disabled={weatherQuery.isFetching || forecastQuery.isFetching}
-    >
+     disabled={weatherQuery.isFetching || forecastQuery.isFetching}>
      <RefreshCw className={`h-4 w-4 ${weatherQuery.isFetching ? "animate-spin" : ""}`} />
     </Button>
    </div>
 
    <div className="grid gap-6">
-    <div>
-     {/* <CurrentWeather data={weatherQuery.data} locationName={locationName} /> */}
-     {/* hourly temp */}
+    <div className="flex flex-col lg:flex-row gap-4">
+     <CurrentWeather data={weatherQuery.data} locationName={locationName} />
+     <HourlyTemperature data={forecastQuery.data} />
     </div>
-    <div>
-     {/* deatails */}
+    <div className="grid gap-6 md:grid-cols-2 items-start">
+     <WeatherDetails data={weatherQuery.data}/>
      {/* forecast */}
     </div>
    </div>

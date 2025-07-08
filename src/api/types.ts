@@ -14,12 +14,12 @@ export interface WeatherData {
  coord: Coordinates,
  weather: WeatherCondition[],
  main: {
-  temo: number,
+  temp: number,
   feels_like: number,
   temp_min: number,
   temp_max: number,
   pressure: number,
-  humdidty: number
+  humidity: number
  },
  wind: {
   speed: number,
