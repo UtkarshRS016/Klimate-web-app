@@ -24,7 +24,6 @@ const WeatherDashboard = () => {
   }
  };
 
-//  console.log("Weather Query Data", weatherQuery.data);
 
  if (locationLoading) {
   return <LoadingSkeleton />
