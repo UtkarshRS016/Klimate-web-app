@@ -34,7 +34,7 @@ const CitySearch = () => {
   navigate(`/city/${name}?lat=${lat}&lon=${lon}`)
  }
 
- const {favourites} = useFavourites();
+ const { favourites } = useFavourites();
 
  return (
   <>
@@ -58,7 +58,7 @@ const CitySearch = () => {
       <>
        <CommandGroup heading="Favourites">
         {favourites.map((location) => {
-         return (<>
+         return (
           <CommandItem key={`${location.id}`}
            value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
            onSelect={handleSelect}>
@@ -71,7 +71,7 @@ const CitySearch = () => {
            )}
            <span className="text-sm text-muted-foreground">, {location.country}</span>
           </CommandItem>
-         </>)
+         )
         })}
        </CommandGroup>
       </>
@@ -93,7 +93,7 @@ const CitySearch = () => {
         </div>
 
         {history.map((location) => {
-         return (<>
+         return (
           <CommandItem key={`${location.lat}-${location.lon}`}
            value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
            onSelect={handleSelect}>
@@ -109,7 +109,7 @@ const CitySearch = () => {
             {format(location.searchedAt, "MMM d, h:mm a")}
            </span>
           </CommandItem>
-         </>)
+         )
         })}
        </CommandGroup>
       </>

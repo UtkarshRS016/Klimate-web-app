@@ -10,22 +10,26 @@ const Header = () => {
 
  return (
   <header className="sticky top-0 z-50 w-full border-b bg-background/60 backdrop-blur py-2 supports-[backdrop]:bg-background/60">
-   <div className="container flex mx-auto h-16 items-center justify-between px-4">
+   <div className="container flex mx-auto h-16 items-center justify-between px-4 overflow-hidden">
     <Link to={'/'}>
-     <img src={isDark ? "/logo1.png" : "/logo2.png"}
+     <img src={isDark ? "/logo_01.png" : "/logo_02.png"}
       alt="Klimate logo"
-      className="h-14"></img>
+      className="h-14" />
     </Link>
-    <div className="flex gap-4">
-     <CitySearch/>
+
+    <div className="flex flex-nowrap max-w-full items-center gap-2 sm:gap-4">
+     <div className="md:max-w-[70vw]">
+      <CitySearch />
+     </div>
 
      {/* theme toggle */}
      <div className={`flex items-center cursor-pointer transition-transform duration-500
-     ${isDark ? "rotate-180":"rotate-0"}`}
+     ${isDark ? "rotate-180" : "rotate-0"}`}
       onClick={() => setTheme(isDark ? "light" : "dark")}>
-      {isDark ? <Sun className="h-6 w-6 text-yellow-500 rotate-0 transition-all" /> : 
-      <Moon className="h-6 w-6 text-blue-500 rotate-0 transition-all"/>}
+      {isDark ? <Sun className="h-6 w-6 text-yellow-500 rotate-0 transition-all" /> :
+       <Moon className="h-6 w-6 text-blue-500 rotate-0 transition-all" />}
      </div>
+
     </div>
    </div>
   </header>

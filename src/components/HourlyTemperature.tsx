@@ -20,14 +20,15 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
    <CardHeader>
     <CardTitle>Todays's Temperature</CardTitle>
    </CardHeader>
-   <CardContent>
+   <CardContent className="px-2 sm:px-6">
     <div className="h-[200px] w-full">
      <ResponsiveContainer width={"100%"} height={"100%"}>
-      <LineChart data={chartData}>
+      <LineChart data={chartData} margin={{right : 20, top:10}}>
        <XAxis dataKey="time" stroke="#888888"
         fontSize={12}
         tickLine={false}
-        axisLine={false} />
+        axisLine={false} 
+        padding={{left : 12}}/>
         <YAxis stroke="#888888"
         fontSize={12}
         tickLine={false}
