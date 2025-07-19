@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { CommandDialog, CommandInput, CommandEmpty, CommandGroup, CommandItem, CommandList, CommandSeparator } from "./ui/command"
 import { Button } from "./ui/button";
-import { Clock, Loader2, Search, XCircle } from "lucide-react";
+import { Clock, Loader2, Search, Star, XCircle } from "lucide-react";
 import { useLocationSearch } from "@/hooks/UseWeatherHooks";
 import { useNavigate } from "react-router-dom";
 import { useSearchHistory } from "@/hooks/UseSearchHistory";
 import { format } from "date-fns";
+import { useFavourites } from "@/hooks/UseFavourite";
 
 const CitySearch = () => {
 
@@ -30,8 +31,10 @@ const CitySearch = () => {
   })
 
   setOpen(false);
-  navigate(`/city/${name}??lat=${lat}%lon=${lon}`)
+  navigate(`/city/${name}?lat=${lat}&lon=${lon}`)
  }
+
+ const {favourites} = useFavourites();
 
  return (
   <>
@@ -47,19 +50,40 @@ const CitySearch = () => {
      value={query}
      onValueChange={setQuery} />
     <CommandList>
-     {query.length > 2 && !isLoading && (<CommandEmpty>No Cities found.</CommandEmpty>)}
+     {query.length > 2 && !isLoading && (
+      <CommandEmpty>No Cities found.</CommandEmpty>
+     )}
 
-     <CommandGroup heading="Favourites">
-      <CommandItem>Calendar</CommandItem>
-     </CommandGroup>
+     {favourites.length > 0 && (
+      <>
+       <CommandGroup heading="Favourites">
+        {favourites.map((location) => {
+         return (<>
+          <CommandItem key={`${location.id}`}
+           value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
+           onSelect={handleSelect}>
+           <Star className="m2-2 h-4 w-4 text-yellow-500" />
+           <span>
+            {location.name}
+           </span>
+           {location.state && (
+            <span className="text-sm text-muted-foreground">, {location.state}</span>
+           )}
+           <span className="text-sm text-muted-foreground">, {location.country}</span>
+          </CommandItem>
+         </>)
+        })}
+       </CommandGroup>
+      </>
+     )}
 
 
      {history.length > 0 && (
       <>
        <CommandSeparator />
        <CommandGroup>
-        <div>
-         <p>Recent Searches</p>
+        <div className="flex items-center justify-between px-2 my-2">
+         <p className="text-xs text-muted-foreground">Recent Searches</p>
          <Button variant="ghost"
           size="sm"
           onClick={() => clearHistory.mutate()}>
@@ -82,7 +106,7 @@ const CitySearch = () => {
            )}
            <span className="text-sm text-muted-foreground">, {location.country}</span>
            <span>
-            {format(location.searchedAt,"MMM d, h:mm a")}
+            {format(location.searchedAt, "MMM d, h:mm a")}
            </span>
           </CommandItem>
          </>)

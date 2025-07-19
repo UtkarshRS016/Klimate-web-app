@@ -8,6 +8,7 @@ import CurrentWeather from "@/components/CurrentWeather"
 import HourlyTemperature from "@/components/HourlyTemperature"
 import WeatherDetails from "@/components/WeatherDetails"
 import WeatherForecast from "@/components/WeatherForecast"
+import FavouriteCities from "@/components/FavouriteCities"
 
 
 const WeatherDashboard = () => {
@@ -18,7 +19,7 @@ const WeatherDashboard = () => {
  const forecastQuery = useForecastQuery(coordinates);
  const locationQuery = useReverseGeocodeQuery(coordinates);
 
- console.log("weather query",weatherQuery)
+ console.log("weather query", weatherQuery)
 
  const handleRefresh = () => {
   getLocation();
@@ -92,7 +93,7 @@ const WeatherDashboard = () => {
 
  return (
   <div className="space-y-4">
-   {/* Favorite cities */}
+   {/* Favorite cities */}<FavouriteCities />
    <div className="flex items-center justify-between">
     <div className="text-xl font-bold tracking-tight">
      My location
@@ -111,9 +112,9 @@ const WeatherDashboard = () => {
      <HourlyTemperature data={forecastQuery.data} />
     </div>
     <div className="grid gap-6 md:grid-cols-2 items-start">
-     <WeatherDetails data={weatherQuery.data}/>
+     <WeatherDetails data={weatherQuery.data} />
      {/* forecast */}
-     <WeatherForecast data={forecastQuery.data}/>
+     <WeatherForecast data={forecastQuery.data} />
     </div>
    </div>
   </div>
