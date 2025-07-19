@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react'
 import { useTheme } from "@/context/themeProvider"
 import { Moon, Sun } from "lucide-react";
 import { Link } from "react-router-dom"
@@ -7,6 +8,12 @@ const Header = () => {
 
  const { theme, setTheme } = useTheme();
  const isDark = (theme === "dark");
+
+ const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
  return (
   <header className="sticky top-0 z-50 w-full border-b bg-background/60 backdrop-blur py-2 supports-[backdrop]:bg-background/60">
